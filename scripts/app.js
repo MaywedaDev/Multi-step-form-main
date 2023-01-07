@@ -236,7 +236,7 @@ $(document).ready(function(){
                     }   
                 })
             break;
-            case 1: 
+            case 1:
                 $('.next').off('click')
                 $(".next").on('click', function(){
                     $('#plansform').submit()
@@ -248,6 +248,10 @@ $(document).ready(function(){
                 })
             break;
             case 2:
+                $('.next').html('Next Step')
+                if($('.next').hasClass('confirm')){
+                    $('.next').removeClass('confirm')
+                } 
                 $('.next').off('click')
                 $('.next').on('click', function(){
                     let addons = []
