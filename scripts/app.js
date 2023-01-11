@@ -115,8 +115,8 @@ $(document).ready(function(){
                 i++
             }
 
-            // console.log(i)
-            switchHandler(i)
+            console.log(i)
+            switchHandler(i-1, i)
 
         }
         else{
@@ -133,7 +133,7 @@ $(document).ready(function(){
             i--
         }
         // console.log(i)
-        switchHandler(i)
+        switchHandler(i+1, i)
     })
 
     // This changes the style of a plan when clicked and keeps the data in a variable
@@ -165,14 +165,16 @@ $(document).ready(function(){
 
     // Handle Sidebar active icon
 
-    function switchHandler(i){
+    function switchHandler(a, b){
         // console.log(i)
 
-        sidebarHandler(i)
-        headerHandler(i)
-        stepHandler(i)
-        buttonDisplayedHandler(i)
-        setNextListener(i)
+        console.log(a, b)
+
+        sidebarHandler(b)
+        headerHandler(b)
+        stepHandler(a, b)
+        buttonDisplayedHandler(b)
+        setNextListener(b)
     }
 
     function sidebarHandler(i){
@@ -190,9 +192,29 @@ $(document).ready(function(){
 
     // Handle the step displayed currently
 
-    function stepHandler(i){
-        $(".container .step").removeClass("active")
-        $(`.container .step:eq(${i})`).addClass('active')
+    function stepHandler(a, b){
+        // $(".container .step").removeClass("active")
+        $(`.container .step:eq(${b})`).addClass('active')
+        $('button').prop('disabled', true)
+        if (a < b){
+            $(`.container .step:eq(${a})`).addClass('slideOutLeft')
+            $(`.container .step:eq(${b})`).addClass('slideInLeft')
+            setTimeout(() => {
+                $(`.container .step:eq(${a})`).removeClass('active')
+                $(`.container .step:eq(${a})`).removeClass('slideOutLeft')
+                $(`.container .step:eq(${b})`).removeClass('slideInLeft')
+                $('button').prop('disabled', false)
+            }, 800)
+        } else {
+            $(`.container .step:eq(${a})`).addClass('slideOutRight')
+            $(`.container .step:eq(${b})`).addClass('slideInRight')
+            setTimeout(() => {
+                $(`.container .step:eq(${a})`).removeClass('active')
+                $(`.container .step:eq(${a})`).removeClass('slideOutRight')
+                $(`.container .step:eq(${b})`).removeClass('slideInRight')
+                $('button').prop('disabled', false)
+            }, 800)
+        }
     }
 
     // Set buttons active
@@ -229,7 +251,7 @@ $(document).ready(function(){
                         }
             
                         // console.log(i)
-                        switchHandler(i)
+                        switchHandler(i-1, i)
                     }
                     else{
                         // console.log('invalid')
@@ -243,7 +265,7 @@ $(document).ready(function(){
                     if($('#plansform').valid()){
                         // console.log('yes', $('#plansform').serializeArray())
                         i++
-                        switchHandler(i)
+                        switchHandler(i-1, i)
                     }
                 })
             break;
@@ -266,7 +288,7 @@ $(document).ready(function(){
                         data.addons = addons
                         // console.log(data)
                         i++
-                        switchHandler(i)
+                        switchHandler(i-1, i)
                         setSummary()
 
                     }
@@ -276,7 +298,7 @@ $(document).ready(function(){
             $('.next').off('click')
             $('.next').on('click', function(){
                 i++
-                switchHandler(i)
+                switchHandler(i-1, i)
             })
             break;
             default:

@@ -100,16 +100,82 @@
       padding: 20px calc(10% - 10px) 20px 10%;
       display: flex;
       flex-direction: column;
-      flex: 1 1 auto; 
+      flex: 1 1 auto;
+      position: relative;
+      overflow-x: hidden; 
     }
 
     .headers{
         margin-bottom: 30px;
     }
 
+    @keyframes slideFadeLeft {
+      0%{
+        opacity: 1;
+        left: 0
+      }
+      100%{
+        opacity: 0;
+        left: -100%
+      }
+    }
+
+    @keyframes slideFadeRight {
+      0%{
+        opacity: 1;
+        left: 0
+      }
+      100%{
+        opacity: 0;
+        left: 100%
+      }
+    }
+
+    @keyframes slideInRight {
+      0%{
+        opacity: 0;
+        left: -100%
+      }
+      100%{
+        opacity: 1;
+        left: 0
+      }
+      
+    }
+
+    @keyframes slideInLeft {
+      0%{
+        opacity: 0;
+        left: 100%
+      }
+      100%{
+        opacity: 1;
+        left: 0
+      }
+    }
+
+    .slideInLeft{
+      animation: slideInLeft 0.8s ease-in-out 0s 1 normal forwards;
+    }
+
+    .slideInRight{
+      animation: slideInRight 0.8s ease-in-out 0s 1 normal forwards;
+    }
+
+    .slideOutLeft{
+      animation: slideFadeLeft 0.8s ease-in-out 0s 1 normal forwards;
+    }
+
+    .slideOutRight{
+      animation: slideFadeRight 0.8s ease-in-out 0s 1 normal forwards;
+    }
+
+    
+
     .container .step, .container .header{
         display: none;
         flex-direction: column;
+        top: 0;
     }
 
     .container .step.active, .container .header.active{
@@ -217,7 +283,15 @@
     }
 
     .container button:disabled{
-        display: none;
+        filter: grayscale(0.6);
+        cursor: not-allowed;
+        opacity: 0.8;
+    }
+
+    .container button:disabled:hover{
+      filter: grayscale(0.6);
+      cursor: not-allowed;
+      opacity: 0.8;
     }
 
     .plans{
@@ -336,6 +410,7 @@
     .period.monthly label::before{
         transform: translateX(2px);
     }
+
 
      #check{
       display: none;
@@ -502,10 +577,18 @@
 
     .steps{
       flex: 1 1 auto;
+      width: 210%;
+      position: relative;
     }
 
     .step, .thanks{
       height: 100%;
+      position: absolute;
+      top: 0;
+    }
+
+    .step{
+      width: 48%;
     }
 
   @media screen and (max-width: 768px) {
@@ -571,7 +654,16 @@
     .steps{
       padding: 10px 20px 25px 20px;
       border-radius: 0 0 7px 7px;
-      flex: none;
+      flex: 1 0 auto;
+      width: 100%;
+    }
+
+    .step{
+      width: calc(100% - 40px);
+    }
+
+    .thanks{
+      width: 100%;
     }
 
     .plans{
